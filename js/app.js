@@ -6,7 +6,7 @@
     var cityname=$('#cityInput').val();
     $.ajax({
         type: 'GET',
-        url: `http://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
         success: function(data) {
             console.log('In success callback');
             console.log(data);
@@ -27,7 +27,7 @@
 var cityName=$('#cityinput').val();
 $.ajax({
         type: 'GET',
-        url: `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+        url: `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
         success: function(data) {
             console.log('In success callback');
             console.log(data);
@@ -59,7 +59,7 @@ $('#getForecastBtn').click(function(){
         $('table').hide();
         $.ajax({
             type: 'GET',
-            url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
             success: (data) => {
                 console.log('In success callback');
                 console.log(data);
@@ -77,7 +77,7 @@ var cityname = $('#cityinput').val();
 
 $.ajax({
             type: 'GET',
-            url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+            url: `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
             success: (data) => {
                 console.log('In success callback');
                 console.log(data);
