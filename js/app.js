@@ -1,4 +1,4 @@
-$('#getWeatherBtn').click(function(){
+﻿$('#getWeatherBtn').click(function(){
     //$("button").removeClass("reults-hide");
     $('#chart-container').hide();
     $('#chart').hide();
@@ -24,18 +24,10 @@ $('#getWeatherBtn').click(function(){
             console.log(err);
         }
     });
-})
-
-
-$('#getWeatherBtn').click(function(){
-    //$("button").removeClass("reults-hide");
-    $('#chart-container').hide();
-    $('#chart').hide();
-    console.log('Button clicked');
-    var cityname=$('#cityinput').val();
-    $.ajax({
+var cityName=$('#cityinput').val();
+$.ajax({
         type: 'GET',
-        url: `http://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+        url: `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
         success: function(data) {
             console.log('In success callback');
             console.log(data);
@@ -53,7 +45,12 @@ $('#getWeatherBtn').click(function(){
             console.log(err);
         }
     });
+
 })
+
+
+
+
 
 
 $('#getForecastBtn').click(function(){
@@ -66,86 +63,29 @@ $('#getForecastBtn').click(function(){
             success: (data) => {
                 console.log('In success callback');
                 console.log(data);
-                listOfDates = data.list.map((ele) => moment(ele.dt * 1000).format('dddd, h:mm a'));
-                console.log(listOfDates);
+                
                 listOfTemp = data.list.map(ele => Math.round(ele.main.temp - 270));
                 console.log(listOfTemp);
-                plotChart(listOfTemp, listOfDates);
+               
             },
             error: (err) => {
                 console.log('In error callback');
                 console.log(err);
             }
         });
+var cityname = $('#cityinput').val();
 
-    var plotChart=function(temparray,datesarray){
-        console.log("Button clicked");
-        $('#chart-container').show();
-        $('#chart').show();
-        var cityName=$('#cityInput').val();
-        Highcharts.chart('chart-container', {
-            chart: {
-              type: 'spline'
-            },
-            title: {
-              text: 'Monthly Average Temperature'
-            },
-            subtitle: {
-              text: 'Source: WorldClimate.com'
-            },
-            xAxis: {
-              categories: datesarray
-            },
-            yAxis: {
-              title: {
-                text: 'Temperature'
-              },
-              labels: {
-                formatter: function () {
-                  return this.value + '°';
-                }
-              }
-            },
-            tooltip: {
-              crosshairs: true,
-              shared: true
-            },
-            plotOptions: {
-              spline: {
-                marker: {
-                  radius: 4,
-                  lineColor: '#666666',
-                  lineWidth: 1
-                }
-              }
-            },
-            series: [{
-              name: cityName,
-              marker: {
-                symbol: 'square'
-              },
-              data: temparray
-            }]
-    });
-}
-})
-
-
-$('#getForecastBtn').click(function(){
-    console.log('Button Clicked');
-        var cityName = $('#cityinput').val();
-        $('table').hide();
-        $.ajax({
+$.ajax({
             type: 'GET',
-            url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=c6692183353a35f1d73dbe6f90af94ba`,
+            url: `http://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=c6692183353a35f1d73dbe6f90af94ba`,
             success: (data) => {
                 console.log('In success callback');
                 console.log(data);
                 listOfDates = data.list.map((ele) => moment(ele.dt * 1000).format('dddd, h:mm a'));
                 console.log(listOfDates);
-                listOfTemp = data.list.map(ele => Math.round(ele.main.temp - 270));
+                listOftemp = data.list.map(ele => Math.round(ele.main.temp - 270));
                 console.log(listOfTemp);
-                plotchart(listOfTemp, listOfDates);
+                plotchart(listOfTemp,listOftemp, listOfDates);
             },
             error: (err) => {
                 console.log('In error callback');
@@ -153,12 +93,14 @@ $('#getForecastBtn').click(function(){
             }
         });
 
-    var plotchart=function(temparray,datesarray){
+
+    var plotchart=function(temp1array,temparray,datesarray){
         console.log("Button clicked");
         $('#chart-container').show();
         $('#chart').show();
         
         var cityName=$('#cityinput').val();
+var cityname=$('#cityInput').val();
         Highcharts.chart('chart', {
             chart: {
               type: 'spline'
@@ -200,7 +142,13 @@ $('#getForecastBtn').click(function(){
               marker: {
                 symbol: 'square'
               },
-              data: temparray
+              data: temparray},
+{name: cityname,
+              marker: {
+                symbol: 'square'
+              },
+              data: temp1array
+
             }]
     });
 }
